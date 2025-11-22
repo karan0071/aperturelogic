@@ -1,0 +1,13 @@
+/* simplified style to include required theme + layout */
+:root{
+  --bg:#fff;--text:#111;--muted:#555;--card:#f4f4f4;--accent:#0ea5a4;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0b1220;--text:#e6eef6;--muted:#9aa6b2;--card:#071025;--accent:#38bdf8;}
+}
+body{font-family:Arial;margin:0;background:var(--bg);color:var(--text);}
+.container{max-width:1000px;margin:auto;padding:20px;}
+.site-header,.site-footer{border-bottom:1px solid #ccc;}
+.cat-card{padding:10px;background:var(--card);border-radius:8px;text-decoration:none;color:var(--text);}
+.posts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;}
+.post-card{background:var(--card);padding:16px;border-radius:10px;}

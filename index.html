@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aperturelogic</title>
+  <meta name="description" content="Aperturelogic — travel, AI & cars" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title">Aperturelogic</h1>
+      <p class="site-tagline">From routes to runtimes — travel, AI & cars</p>
+      <div class="controls">
+        <button id="theme-toggle" aria-label="Toggle theme">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>Travel · AI · Cars</h2>
+      <p>Thoughtful notes on travel routes, AI systems, and automotive tech.</p>
+    </section>
+
+    <section class="categories">
+      <a href="#all" class="cat-card" data-cat="all">All</a>
+      <a href="#travel" class="cat-card" data-cat="travel">Travel</a>
+      <a href="#tech" class="cat-card" data-cat="tech">Tech / AI</a>
+      <a href="#cars" class="cat-card" data-cat="cars">Cars (Tech)</a>
+    </section>
+
+    <section id="posts-list" class="posts-grid"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">&copy; <span id="year"></span> Aperturelogic — Built with AI tools.</div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>

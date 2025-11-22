@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "sample-travel",
+    "file": "sample-travel.md",
+    "meta": {
+      "title": "A Quick Guide to Leh—Ladakh Road Trip",
+      "category": "travel",
+      "date": "2025-09-10",
+      "summary": "Route, permits, fuel stops and practical advice for a Leh roadtrip."
+    }
+  },
+  {
+    "slug": "sample-tech",
+    "file": "sample-tech.md",
+    "meta": {
+      "title": "Why Transformer Models Still Matter in 2025",
+      "category": "tech",
+      "date": "2025-08-01",
+      "summary": "Transformer architectures and RAG explained."
+    }
+  },
+  {
+    "slug": "sample-cars",
+    "file": "sample-cars.md",
+    "meta": {
+      "title": "Turbocharged vs Naturally Aspirated",
+      "category": "cars",
+      "date": "2025-06-20",
+      "summary": "How turbos work and tuning insights."
+    }
+  }
+]

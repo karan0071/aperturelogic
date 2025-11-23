@@ -13,7 +13,7 @@ I had originally made a daring plan to make the entire journey by road in my own
 
 The route was all set: Chandigarh to Chennai, a short connecting flight to Coimbatore, and from there, a self-drive to Ooty in a red Honda Amaze.
 
-![Red Honda Amaze on the road](images/honda-amaze.jpg)
+
 
 I’ve driven through the Nilgiris before, but each time it feels different. The play of weather, the mood of the hills, and the stops along the way all combine to make each drive its own story.
 
@@ -47,17 +47,17 @@ When she handed me the cup, I braced myself for disappointment as the pale colou
 
 The climb grew steeper, with a constant and gentle drizzle. Ooty revealed itself wrapped in a soft, shifting mist.
 
-![Wrapped in Mist near Ooty](images/ooty-mist.jpg)
+
 
 It’s a sight I’ve seen many times, yet it still has the power to slow everything down. The mist doesn’t just sit still, it moves with the town, slipping between rooftops, curling through gardens, and blurring the road ahead just enough to make the town feel unhurried and calm.
 
 After reaching Ooty, I settled into the balcony of my hotel, letting the day’s travel fade into the background. From there, I watched the mist drift slowly across the hills, the movement so gentle it felt almost like watching time itself pass literally.
 
-![The Balcony View](images/balcony-view.jpg)
+
 
 One difference I could clearly sense was that if you have braved the January cold of Shimla, even Ooty at its coldest will feel pleasantly mild. I sat there quietly for a long while, without any urge to check the clock, just letting the stillness of the evening sink in.
 
-![Coffee on the Balcony](images/coffee-cup.jpg)
+
 
 ## Nilgiris and the Himalayas – Two Worlds Apart
 
@@ -65,7 +65,7 @@ Being from the region which is close to the mighty Himalayas, I can’t help but
 
 The Nilgiris, on the other hand, are far older—over 100 million years. They are block mountains, part of the ancient Western Ghats, with gentler heights and rounded contours shaped by time. Here, tea plantations ripple across the slopes. We might have known this difference for years, but the contrast will still feel vivid every time one travels between the two.
 
-![View midway from Coimbatore to Ooty](images/midway-view.jpg)
+
 
 ## Doddabetta Peak – Winds That Carry the Clouds
 
@@ -73,19 +73,19 @@ The next day in the evening visited the Doddabetta Peak. The wind was strong eno
 
 Unlike the sharp, distinct peaks of the Himalayas, Doddabetta is a gentle rise, the highest point here, but not in a dramatic, jagged way. One colleague, who had been especially enthusiastic about visiting Doddabetta Peak, looked around and asked, half-joking and half-serious: “But where exactly is the peak?” The question set off a round of laughter.
 
-![Doddabetta Peak View](images/doddabetta.jpg)
+
 
 ## Pykara Falls: Nature’s Own Masterpiece
 
 The next morning was reserved for the Pykara falls. This would be my first visit to Pykara falls. Ruben, the local driver, was supposed to take us there. On the way, he became a friendly companion, thanks to his engaging conversations, helpful nature, and surprising taste in Tamil renditions of Hindi songs.
 
-![Pykara Falls](images/pykara-falls.jpg)
+
 
 The water tumbled in clean, white ribbons framed by deep green, its sound a perfect blend of power and calm. Sat there for a while, letting the drizzle settle on shoulders, the air cool and fresh. From a small and rounded slope nearby, where a few empty benches faced the falls, Tamil music played softly through hidden speakers adding a gentle, almost cinematic touch to the moment.
 
 Before heading back, Ruben took the way to a well-known restaurant where a hearty South Indian meal was served.
 
-![Paradise Restaurant Food](images/paradise-food.jpg)
+
 
 Later, he led to an authentic chocolate and tea shop called **Choco Story**, a chocolate museum cum store. The handmade chocolates were irresistible!
 

@@ -116,64 +116,58 @@ a:hover {
   box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
 
-/* -------------------------------------------------------
-   HERO BANNER — FINAL CLEAN VERSION (Option B)
--------------------------------------------------------- */
+/* ============================
+   HERO BANNER — FORCE BLOCK
+   (Use this to override any stray rules)
+   ============================ */
+
 .hero-banner {
-  position: relative;
-  height: 100px;       /* exact size */
-  margin-top: 24px;    /* prevents sticky overlap */
-  overflow: hidden;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
+  height: 100px !important;
+  min-height: 100px !important;
+  max-height: 100px !important;
+  margin-top: 24px !important;
+  overflow: hidden !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-sm) !important;
+  position: relative !important;
 }
 
+/* ensure slideshow container (if present) inherits fixed height) */
+.hero-slideshow,
+.hero-slideshow .hero-img,
 .hero-img {
-  width: 100%;
-  height: 100%;
-  min-height: 100px;
-  object-fit: cover;
-  filter: brightness(0.65);
-  transition: 0.45s ease;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100px !important;
+  max-height: 100px !important;
+  object-fit: cover !important;
+  display: block !important;
 }
 
-.hero-banner:hover .hero-img {
-  transform: scale(1.02);
-  filter: brightness(0.75);
-}
-
+/* overlay text safe zone (won't change layout) */
 .hero-overlay {
-  position: absolute;
-  bottom: 10px;
-  left: 18px;
-  color: #fff;
+  position: absolute !important;
+  bottom: 10px !important;
+  left: 18px !important;
+  z-index: 10 !important;
 }
 
-.hero-overlay h1 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.hero-overlay p {
-  margin: 4px 0 0;
-  font-size: 0.85rem;
-  opacity: 0.9;
-}
-
-/* Mobile responsive */
+/* Mobile: reduce slightly but still fixed */
 @media (max-width: 600px) {
   .hero-banner {
-    height: 80px;
-    margin-top: 20px;
+    height: 80px !important;
+    min-height: 80px !important;
+    max-height: 80px !important;
+    margin-top: 20px !important;
   }
-  .hero-overlay h1 {
-    font-size: 1rem;
-  }
-  .hero-overlay p {
-    font-size: 0.75rem;
+  .hero-slideshow .hero-img,
+  .hero-img {
+    min-height: 80px !important;
+    max-height: 80px !important;
+    height: 100% !important;
   }
 }
+
 
 /* Category buttons */
 .categories {

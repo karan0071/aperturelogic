@@ -4,7 +4,7 @@ category: "travel"
 date: "2025-08-10"
 summary: "From the grid layouts of Chandigarh to the winding tea gardens of Ooty. A log of flights, drives, and altitude changes."
 ---
-# The Departure
+
 *The Plan and the Turn it Took
 Some trips are purely functional: flights, meetings, return. And then there are journeys that manage to offer fresh moments worth remembering. My recent travel from Chandigarh to Ooty for official work was exactly that: familiar in outline, yet full of small details that made it special. I had originally made a daring plan to make the entire journey by road in my own car, but the incessant rain in Western ghats meant I had to take to the skies for most of the journey, but as the thought refused to leave me, I saved the drive for the Nilgiris’ winding ascent from Coimbatore to Ooty ditching the official vehicle at the Airport.
 
@@ -77,14 +77,4 @@ On the way back from Ooty to Coimbatore, I found myself lost in thoughts, wonder
 The Journey’s Quiet Lesson
 For a first visit, Ooty left a deeper mark than I had expected. Every part of the journey, driving through the winding Nilgiris roads, sipping tea in the drizzle, watching the mist transform the town, feeling the playful winds at Doddabetta, and sitting by the music-filled slopes near Pykara Falls, felt new yet instantly comforting. It wasn’t just about reaching a destination; it was about how the place unfolded at its own pace, letting me take it in one moment at a time. And as I left, I knew this wouldn’t be my last trip here; Ooty had made sure of that. And as I finish writing this blog from the balcony of a hotel room in a Himalayan hill station, I can’t help but be amazed at how different these two worlds are, each beautiful in its own way, each leaving its own imprint on the heart.*
 
-Start with the flight details or the initial drive from Chandigarh.
 
-# The Blue Mountains
-*Paste the section about arriving in Nilgiris here...*
-
-Describe the roads, the car performance, and the scenery.
-
-![Nilgiris Road](https://images.unsplash.com/photo-1590053153540-c75c80ce79d7?auto=format&fit=crop&w=1200&q=80)
-
-# The Verdict
-*Paste your conclusion here...*

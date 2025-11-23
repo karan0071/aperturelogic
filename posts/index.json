@@ -1,12 +1,12 @@
 [
   {
-    "slug": "sample-travel",
-    "file": "sample-travel.md",
+    "slug": "nilgiris-trip",
+    "file": "nilgiris-trip.md",
     "meta": {
-      "title": "A Quick Guide to Leh—Ladakh Road Trip",
+      "title": "From Chandigarh to the Nilgiris: Flying High, Driving Higher",
       "category": "travel",
-      "date": "2025-09-10",
-      "summary": "Route, permits, fuel stops and practical advice for a Leh roadtrip."
+      "date": "2025-08-10",
+      "summary": "From the grid layouts of Chandigarh to the winding tea gardens of Ooty. A log of flights, drives, and altitude changes."
     }
   },
   {
@@ -16,17 +16,17 @@
       "title": "Why Transformer Models Still Matter in 2025",
       "category": "tech",
       "date": "2025-08-01",
-      "summary": "Transformer architectures and RAG explained."
+      "summary": "Understanding Attention Mechanisms and RAG architecture for modern AI."
     }
   },
   {
     "slug": "sample-cars",
     "file": "sample-cars.md",
     "meta": {
-      "title": "Turbocharged vs Naturally Aspirated",
+      "title": "Turbocharged vs Naturally Aspirated: The Verdict",
       "category": "cars",
       "date": "2025-06-20",
-      "summary": "How turbos work and tuning insights."
+      "summary": "Throttle response, maintenance costs, and the feeling of boost lag."
     }
   }
 ]

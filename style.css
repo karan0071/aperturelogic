@@ -258,3 +258,61 @@ li {
     font-size: 1.6rem;
   }
 }
+
+/* ---------------------------------------------
+   HERO BANNER
+---------------------------------------------- */
+.hero-banner {
+  position: relative;
+  height: 340px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 30px;
+  box-shadow: var(--shadow-md);
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.65);
+  transition: 0.8s ease;
+}
+
+.hero-banner:hover .hero-img {
+  transform: scale(1.04);
+  filter: brightness(0.75);
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  color: #fff;
+}
+
+.hero-overlay h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.hero-overlay p {
+  margin: 8px 0 0;
+  font-size: 1.15rem;
+  opacity: 0.9;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .hero-banner {
+    height: 240px;
+  }
+  .hero-overlay h1 {
+    font-size: 1.7rem;
+  }
+  .hero-overlay p {
+    font-size: 1rem;
+  }
+}
+

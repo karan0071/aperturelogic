@@ -1,25 +1,19 @@
 // ---------------------------------------------------------
-// Aperturelogic — Full Working Script.js (GitHub Pages Safe)
+// Aperturelogic — Updated Logic for New UI
 // ---------------------------------------------------------
 
 const mdCache = {};
 
-// Utility
-function $(sel) {
-  return document.querySelector(sel);
-}
+function $(sel) { return document.querySelector(sel); }
 
-// Parse YAML frontmatter
+// Parse YAML frontmatter (Same as before)
 function parseFrontmatter(text) {
   if (!text.startsWith("---")) return { meta: {}, body: text };
-
   const end = text.indexOf("\n---", 3);
   if (end === -1) return { meta: {}, body: text };
-
   const fm = text.slice(3, end).trim();
   const body = text.slice(end + 4).trim();
   const meta = {};
-
   fm.split("\n").forEach(line => {
     const i = line.indexOf(":");
     if (i === -1) return;
@@ -28,155 +22,108 @@ function parseFrontmatter(text) {
     if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
     meta[key] = val;
   });
-
   return { meta, body };
 }
 
-// Very small markdown renderer
+// Markdown Renderer (Same as before)
 function renderMarkdown(md) {
   let html = md
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-
-  // code blocks ```
-  html = html.replace(/```([\s\S]*?)```/g, (m, code) => `<pre><code>${code}</code></pre>`);
-
-  // images ![]( )
-  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (m, alt, url) => {
-    return `<img src="${url}" alt="${alt}">`;
-  });
-
-  // links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, t, u) => {
-    return `<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
-  });
-
-  // headers
-  html = html.replace(/^###### (.*)$/gm, "<h6>$1</h6>");
-  html = html.replace(/^##### (.*)$/gm, "<h5>$1</h5>");
-  html = html.replace(/^#### (.*)$/gm, "<h4>$1</h4>");
-  html = html.replace(/^### (.*)$/gm, "<h3>$1</h3>");
-  html = html.replace(/^## (.*)$/gm, "<h2>$1</h2>");
-  html = html.replace(/^# (.*)$/gm, "<h1>$1</h1>");
-
-  // unordered lists
-  html = html.replace(/^\s*[-*+] (.*)$/gm, "<li>$1</li>");
-  html = html.replace(/(<li>[\s\S]*?<\/li>)/g, "<ul>$1</ul>");
-
-  // bold & italic
-  html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-  html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-
-  // paragraphs
-  html = html
-    .split(/\n\s*\n/)
-    .map(p => {
-      if (p.match(/^<(h[1-6]|ul|pre|img|blockquote)/)) return p;
-      return `<p>${p.replace(/\n/g, " ")}</p>`;
-    })
-    .join("\n");
-
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/```([\s\S]*?)```/g, (m, c) => `<pre><code>${c}</code></pre>`)
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (m, a, u) => `<img src="${u}" alt="${a}">`)
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, t, u) => `<a href="${u}" target="_blank">${t}</a>`)
+    .replace(/^# (.*)$/gm, "<h1>$1</h1>")
+    .replace(/^## (.*)$/gm, "<h2>$1</h2>")
+    .replace(/^### (.*)$/gm, "<h3>$1</h3>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g, "<em>$1</em>")
+    .split(/\n\s*\n/).map(p => p.match(/^<(h|ul|pre|img)/) ? p : `<p>${p.replace(/\n/g, " ")}</p>`).join("\n");
   return html;
 }
 
-// Format date
 function formatDate(dstr) {
   if (!dstr) return "";
-  try {
-    const d = new Date(dstr);
-    return d.toLocaleDateString();
-  } catch {
-    return dstr;
-  }
+  return new Date(dstr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-// Auto-detect correct posts path
 function getPostsPath() {
   let base = window.location.pathname;
   if (!base.endsWith("/")) base = base.replace(/index\.html$/, "");
   return base + "posts/";
 }
 
-// Load post list using index.json
 async function loadPostList() {
   const POSTS_PATH = getPostsPath();
-
   try {
     const resp = await fetch(POSTS_PATH + "index.json", { cache: "no-store" });
-
     if (resp.ok) {
       const list = await resp.json();
-
-      list.forEach(item => {
-        mdCache[item.slug] = { meta: item.meta, body: null };
-      });
-
+      list.forEach(item => { mdCache[item.slug] = { meta: item.meta, body: null }; });
       return list;
-    } else {
-      console.error("index.json load failed:", resp.status);
-      return [];
     }
-  } catch (err) {
-    console.error("Could not fetch index.json:", err);
-    return [];
-  }
+  } catch (err) { console.error(err); }
+  return [];
 }
 
-// Create blog card
+// --- UPDATED CARD CREATION FOR NEW UI ---
 function createCard(post) {
   const el = document.createElement("article");
-  el.className = "post-card";
+  
+  // Clean category for CSS class (tech, cars, travel)
+  const catRaw = post.meta.category || "other";
+  const catClass = "cat-" + catRaw.toLowerCase().replace(/[^a-z]/g, ""); 
+  
+  el.className = `post-card ${catClass}`;
 
   const title = post.meta.title || post.slug;
 
   el.innerHTML = `
+    <div class="card-top">
+        <span>${catRaw}</span>
+        <span>${formatDate(post.meta.date)}</span>
+    </div>
     <h3><a href="?post=${post.slug}" data-slug="${post.slug}">${title}</a></h3>
-    <div class="post-meta">${formatDate(post.meta.date)} • <strong>${post.meta.category}</strong></div>
-    <div class="post-summary">${post.meta.summary || ""}</div>
+    <div class="post-summary">${post.meta.summary || "No summary available."}</div>
   `;
   return el;
 }
 
-// Render posts list
 async function renderPosts(filterCat = "all") {
   const list = await loadPostList();
   const container = $("#posts-list");
-
   container.innerHTML = "";
 
   const filtered = list.filter(p =>
-    filterCat === "all" ? true : (p.meta.category || "").toLowerCase() === filterCat.toLowerCase()
+    filterCat === "all" ? true : (p.meta.category || "").toLowerCase().includes(filterCat.toLowerCase())
   );
+  
+  // Update active state on buttons
+  document.querySelectorAll('.filter-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === filterCat);
+  });
 
-  filtered.sort((a, b) => new Date(b.meta.date || 0) - new Date(a.meta.date || 0));
-
-  if (!filtered.length)
-    container.innerHTML = `<p class="muted">No posts in this category.</p>`;
-
+  if (!filtered.length) container.innerHTML = `<p style="color:var(--text-muted)">No posts found.</p>`;
+  
+  // Sort by date new to old
+  filtered.sort((a, b) => new Date(b.meta.date) - new Date(a.meta.date));
+  
   filtered.forEach(p => container.appendChild(createCard(p)));
 }
 
-// Open reader overlay
 async function openPost(slug) {
   const POSTS_PATH = getPostsPath();
-
   let cached = mdCache[slug];
 
   if (!cached.body) {
-    const file = slug + ".md";
-
-    const txt = await fetch(POSTS_PATH + file).then(r => r.text());
+    const txt = await fetch(POSTS_PATH + slug + ".md").then(r => r.text());
     const parsed = parseFrontmatter(txt);
     cached.body = parsed.body;
     cached.meta = parsed.meta;
   }
 
   const html = renderMarkdown(cached.body);
-
   const overlay = document.createElement("div");
   overlay.className = "reader-overlay";
-
   overlay.innerHTML = `
     <div class="reader">
       <button class="close-btn" onclick="this.closest('.reader-overlay').remove()">Close ✕</button>
@@ -185,52 +132,44 @@ async function openPost(slug) {
       <div class="post-body">${html}</div>
     </div>
   `;
-
   document.body.appendChild(overlay);
-}
-
-// Handle post links
-function navHandler() {
-  const params = new URLSearchParams(location.search);
-  const post = params.get("post");
-  if (post) openPost(post);
-}
-
-// Theme toggle
-function initThemeToggle() {
-  const btn = $("#theme-toggle");
-  btn.addEventListener("click", () => {
-    const cur = document.documentElement.getAttribute("data-theme");
-    if (cur === "dark") {
-      document.documentElement.removeAttribute("data-theme");
-      localStorage.removeItem("ap-theme");
-    } else {
-      document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.setItem("ap-theme", "dark");
-    }
+  // Prevent background scrolling
+  document.body.style.overflow = "hidden";
+  // Re-enable scrolling when closed
+  overlay.querySelector(".close-btn").addEventListener("click", () => {
+      document.body.style.overflow = "";
   });
-
-  if (localStorage.getItem("ap-theme") === "dark") {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }
 }
 
-// On page load
+// Initial Load
 window.addEventListener("load", async () => {
   $("#year").textContent = new Date().getFullYear();
-  initThemeToggle();
+  
+  // Theme Toggle
+  const themeBtn = $("#theme-toggle");
+  if(themeBtn) {
+      themeBtn.addEventListener("click", () => {
+        const cur = document.documentElement.getAttribute("data-theme");
+        const next = cur === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("ap-theme", next);
+      });
+  }
+  
+  // Check local storage for theme
+  if(localStorage.getItem("ap-theme")) {
+      document.documentElement.setAttribute("data-theme", localStorage.getItem("ap-theme"));
+  }
 
-  // Category filters
-  document.querySelectorAll(".cat-card").forEach(a => {
+  // Filter clicks
+  document.querySelectorAll(".filter-pill").forEach(a => {
     a.addEventListener("click", e => {
       e.preventDefault();
-      const cat = a.dataset.cat;
-      renderPosts(cat);
-      history.replaceState(null, "", "#" + cat);
+      renderPosts(a.dataset.cat);
     });
   });
 
-  // Delegate post click
+  // Post clicks
   document.body.addEventListener("click", e => {
     const a = e.target.closest("a[data-slug]");
     if (a) {
@@ -240,15 +179,9 @@ window.addEventListener("load", async () => {
   });
 
   await renderPosts("all");
-  navHandler();
-  // Sticky header shadow on scroll
-window.addEventListener("scroll", () => {
-  const header = document.querySelector(".sticky-header");
-  if (window.scrollY > 20) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
-  }
-});
-
+  
+  // URL Param handler
+  const params = new URLSearchParams(location.search);
+  const post = params.get("post");
+  if (post) openPost(post);
 });

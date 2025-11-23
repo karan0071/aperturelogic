@@ -329,4 +329,20 @@ li {
     font-size: 1rem;
   }
 }
+/* -------------------------------------------------------
+   STICKY NAVBAR + FLOATING SHADOW (Step 2)
+-------------------------------------------------------- */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  background: var(--bg, #fff);
+  z-index: 999;
+  transition: box-shadow 0.25s ease, background 0.25s ease;
+}
+
+/* Shadow appears AFTER scrolling */
+.sticky-header.scrolled {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
 

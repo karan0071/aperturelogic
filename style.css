@@ -1,13 +1,260 @@
-/* simplified style to include required theme + layout */
-:root{
-  --bg:#fff;--text:#111;--muted:#555;--card:#f4f4f4;--accent:#0ea5a4;
+/* ---------------------------------------------------------
+   Aperturelogic — Modern Minimalist Styling
+   Clean cards, smooth typography, auto light/dark theme
+---------------------------------------------------------- */
+
+/* Light theme base */
+:root {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --card: #f8f9fa;
+  --border: #e5e7eb;
+  --accent: #0ea5a4;
+
+  --radius: 14px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+
+  --font-main: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
 }
-@media (prefers-color-scheme: dark){
-  :root{--bg:#0b1220;--text:#e6eef6;--muted:#9aa6b2;--card:#071025;--accent:#38bdf8;}
+
+/* Auto dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0f19;
+    --text: #e6edf7;
+    --muted: #9aa6b2;
+    --card: #111827;
+    --border: #1f2937;
+    --accent: #22d3ee;
+  }
 }
-body{font-family:Arial;margin:0;background:var(--bg);color:var(--text);}
-.container{max-width:1000px;margin:auto;padding:20px;}
-.site-header,.site-footer{border-bottom:1px solid #ccc;}
-.cat-card{padding:10px;background:var(--card);border-radius:8px;text-decoration:none;color:var(--text);}
-.posts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;}
-.post-card{background:var(--card);padding:16px;border-radius:10px;}
+
+/* Manual dark toggle override */
+html[data-theme='dark'] {
+  --bg: #0b0f19;
+  --text: #e6edf7;
+  --muted: #9aa6b2;
+  --card: #111827;
+  --border: #1f2937;
+  --accent: #22d3ee;
+}
+
+/* Global */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  opacity: 0.85;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Header */
+.site-header {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+}
+.site-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+.site-tagline {
+  margin-top: 4px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+/* Theme toggle */
+#theme-toggle {
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  float: right;
+  transition: 0.2s;
+}
+#theme-toggle:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Hero section */
+.hero {
+  padding: 32px 0;
+}
+.hero h2 {
+  margin: 0 0 10px;
+  font-size: 1.8rem;
+}
+.hero p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Category buttons */
+.categories {
+  display: flex;
+  gap: 12px;
+  padding: 16px 0;
+  flex-wrap: wrap;
+}
+.cat-card {
+  padding: 8px 16px;
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  font-weight: 600;
+  transition: 0.2s;
+}
+.cat-card:hover {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+/* Blog grid */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Blog card */
+.post-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: 0.25s;
+  cursor: pointer;
+}
+.post-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+.post-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.post-meta {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.post-summary {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+/* Footer */
+.site-footer {
+  padding: 30px 0;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Reader overlay */
+.reader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+.reader {
+  background: var(--bg);
+  width: 100%;
+  max-width: 850px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Reader */
+.reader h1 {
+  margin-top: 0;
+  font-size: 1.8rem;
+}
+.reader img {
+  max-width: 100%;
+  border-radius: var(--radius);
+  margin: 18px 0;
+}
+.reader .close-btn {
+  float: right;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.reader .close-btn:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Code blocks */
+pre {
+  background: #111827;
+  color: #e5e7eb;
+  padding: 16px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+
+/* Lists */
+ul {
+  margin: 10px 0 20px 20px;
+}
+li {
+  margin: 6px 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+  .site-title {
+    font-size: 1.6rem;
+  }
+}

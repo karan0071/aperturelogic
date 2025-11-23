@@ -242,3 +242,53 @@ a { text-decoration: none; color: inherit; transition: 0.2s; }
   .hero-headline { font-size: 2.5rem; }
   .reader { padding: 40px 20px; }
 }
+
+/* --- New Filter & Search Layout --- */
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Search Input Styling */
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 250px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 10px 16px 10px 40px; /* Space for icon */
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-main);
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+#search-input:focus {
+  border-color: var(--accent-tech);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .search-wrapper { max-width: 100%; order: -1; /* Search goes to top on mobile */ }
+}

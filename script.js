@@ -241,4 +241,14 @@ window.addEventListener("load", async () => {
 
   await renderPosts("all");
   navHandler();
+  // Sticky header shadow on scroll
+window.addEventListener("scroll", () => {
+  const header = document.querySelector(".sticky-header");
+  if (window.scrollY > 20) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
+});
+
 });

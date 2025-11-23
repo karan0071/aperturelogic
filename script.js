@@ -1,12 +1,11 @@
 // ---------------------------------------------------------
-// Aperturelogic — Updated Logic for New UI
+// Aperturelogic — Enhanced Interactive Script
 // ---------------------------------------------------------
 
 const mdCache = {};
-
 function $(sel) { return document.querySelector(sel); }
 
-// Parse YAML frontmatter (Same as before)
+// Parse YAML (Standard)
 function parseFrontmatter(text) {
   if (!text.startsWith("---")) return { meta: {}, body: text };
   const end = text.indexOf("\n---", 3);
@@ -25,9 +24,9 @@ function parseFrontmatter(text) {
   return { meta, body };
 }
 
-// Markdown Renderer (Same as before)
+// Markdown Render
 function renderMarkdown(md) {
-  let html = md
+  return md
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
     .replace(/```([\s\S]*?)```/g, (m, c) => `<pre><code>${c}</code></pre>`)
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (m, a, u) => `<img src="${u}" alt="${a}">`)
@@ -38,7 +37,6 @@ function renderMarkdown(md) {
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>")
     .split(/\n\s*\n/).map(p => p.match(/^<(h|ul|pre|img)/) ? p : `<p>${p.replace(/\n/g, " ")}</p>`).join("\n");
-  return html;
 }
 
 function formatDate(dstr) {
@@ -53,38 +51,43 @@ function getPostsPath() {
 }
 
 async function loadPostList() {
-  const POSTS_PATH = getPostsPath();
   try {
-    const resp = await fetch(POSTS_PATH + "index.json", { cache: "no-store" });
-    if (resp.ok) {
-      const list = await resp.json();
-      list.forEach(item => { mdCache[item.slug] = { meta: item.meta, body: null }; });
-      return list;
-    }
+    const resp = await fetch(getPostsPath() + "index.json", { cache: "no-store" });
+    if (resp.ok) return await resp.json();
   } catch (err) { console.error(err); }
   return [];
 }
 
-// --- UPDATED CARD CREATION FOR NEW UI ---
+// --- NEW: Scroll Observer for Animation ---
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('reveal'); // Adds CSS class to trigger fade-up
+      observer.unobserve(entry.target); // Only animate once
+    }
+  });
+}, { threshold: 0.1 });
+
 function createCard(post) {
   const el = document.createElement("article");
-  
-  // Clean category for CSS class (tech, cars, travel)
   const catRaw = post.meta.category || "other";
   const catClass = "cat-" + catRaw.toLowerCase().replace(/[^a-z]/g, ""); 
   
-  el.className = `post-card ${catClass}`;
+  el.className = `post-card ${catClass}`; // Removed 'reveal' here, handled by observer
 
   const title = post.meta.title || post.slug;
-
   el.innerHTML = `
     <div class="card-top">
         <span>${catRaw}</span>
         <span>${formatDate(post.meta.date)}</span>
     </div>
     <h3><a href="?post=${post.slug}" data-slug="${post.slug}">${title}</a></h3>
-    <div class="post-summary">${post.meta.summary || "No summary available."}</div>
+    <div class="post-summary">${post.meta.summary || ""}</div>
   `;
+  
+  // Attach observer to this new card
+  observer.observe(el);
+  
   return el;
 }
 
@@ -97,51 +100,67 @@ async function renderPosts(filterCat = "all") {
     filterCat === "all" ? true : (p.meta.category || "").toLowerCase().includes(filterCat.toLowerCase())
   );
   
-  // Update active state on buttons
   document.querySelectorAll('.filter-pill').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.cat === filterCat);
   });
 
-  if (!filtered.length) container.innerHTML = `<p style="color:var(--text-muted)">No posts found.</p>`;
-  
-  // Sort by date new to old
+  // Sort and Render
   filtered.sort((a, b) => new Date(b.meta.date) - new Date(a.meta.date));
-  
-  filtered.forEach(p => container.appendChild(createCard(p)));
+  filtered.forEach((p, index) => {
+    const card = createCard(p);
+    // Add staggering delay so they don't all pop at once
+    card.style.transitionDelay = `${index * 50}ms`; 
+    container.appendChild(card);
+  });
 }
 
 async function openPost(slug) {
   const POSTS_PATH = getPostsPath();
   let cached = mdCache[slug];
 
-  if (!cached.body) {
+  if (!cached || !cached.body) {
     const txt = await fetch(POSTS_PATH + slug + ".md").then(r => r.text());
     const parsed = parseFrontmatter(txt);
-    cached.body = parsed.body;
-    cached.meta = parsed.meta;
+    cached = { meta: parsed.meta, body: parsed.body };
+    mdCache[slug] = cached;
   }
 
   const html = renderMarkdown(cached.body);
+  
+  // Clean existing overlays
+  const existing = document.querySelector(".reader-overlay");
+  if(existing) existing.remove();
+
   const overlay = document.createElement("div");
   overlay.className = "reader-overlay";
   overlay.innerHTML = `
+    <button class="close-btn">Close ✕</button>
     <div class="reader">
-      <button class="close-btn" onclick="this.closest('.reader-overlay').remove()">Close ✕</button>
       <h1>${cached.meta.title || slug}</h1>
-      <div class="post-meta">${formatDate(cached.meta.date)} • <strong>${cached.meta.category}</strong></div>
+      <div style="margin-bottom:30px; color:var(--text-muted)">${formatDate(cached.meta.date)} • <strong>${cached.meta.category}</strong></div>
       <div class="post-body">${html}</div>
     </div>
   `;
+  
   document.body.appendChild(overlay);
-  // Prevent background scrolling
+  
+  // Small delay to allow CSS transition
+  setTimeout(() => overlay.classList.add("active"), 10);
   document.body.style.overflow = "hidden";
-  // Re-enable scrolling when closed
-  overlay.querySelector(".close-btn").addEventListener("click", () => {
-      document.body.style.overflow = "";
+
+  const close = () => {
+    overlay.classList.remove("active");
+    setTimeout(() => overlay.remove(), 300);
+    document.body.style.overflow = "";
+  };
+
+  overlay.querySelector(".close-btn").addEventListener("click", close);
+  overlay.addEventListener("click", (e) => {
+    if(e.target === overlay) close();
   });
 }
 
-// Initial Load
+// Init
 window.addEventListener("load", async () => {
   $("#year").textContent = new Date().getFullYear();
   
@@ -156,12 +175,10 @@ window.addEventListener("load", async () => {
       });
   }
   
-  // Check local storage for theme
   if(localStorage.getItem("ap-theme")) {
       document.documentElement.setAttribute("data-theme", localStorage.getItem("ap-theme"));
   }
 
-  // Filter clicks
   document.querySelectorAll(".filter-pill").forEach(a => {
     a.addEventListener("click", e => {
       e.preventDefault();
@@ -169,7 +186,6 @@ window.addEventListener("load", async () => {
     });
   });
 
-  // Post clicks
   document.body.addEventListener("click", e => {
     const a = e.target.closest("a[data-slug]");
     if (a) {
@@ -180,7 +196,6 @@ window.addEventListener("load", async () => {
 
   await renderPosts("all");
   
-  // URL Param handler
   const params = new URLSearchParams(location.search);
   const post = params.get("post");
   if (post) openPost(post);

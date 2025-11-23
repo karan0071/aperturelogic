@@ -260,15 +260,15 @@ li {
 }
 
 /* ---------------------------------------------
-   HERO BANNER
+   SMALL HERO BANNER (Minimal - Option B)
 ---------------------------------------------- */
 .hero-banner {
   position: relative;
-  height: 340px;
+  height: 100px;                 /* small height */
   border-radius: var(--radius);
   overflow: hidden;
-  margin-top: 30px;
-  box-shadow: var(--shadow-md);
+  margin-top: 16px;
+  box-shadow: var(--shadow-sm);
 }
 
 .hero-img {
@@ -276,32 +276,46 @@ li {
   height: 100%;
   object-fit: cover;
   filter: brightness(0.65);
-  transition: 0.8s ease;
+  transition: 0.45s ease;
 }
 
 .hero-banner:hover .hero-img {
-  transform: scale(1.04);
+  transform: scale(1.02);
   filter: brightness(0.75);
 }
 
 .hero-overlay {
   position: absolute;
-  bottom: 30px;
-  left: 30px;
+  bottom: 10px;
+  left: 18px;
   color: #fff;
 }
 
 .hero-overlay h1 {
   margin: 0;
-  font-size: 2.4rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
 .hero-overlay p {
-  margin: 8px 0 0;
-  font-size: 1.15rem;
+  margin: 4px 0 0;
+  font-size: 0.85rem;
   opacity: 0.9;
 }
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .hero-banner {
+    height: 80px;
+  }
+  .hero-overlay h1 {
+    font-size: 1rem;
+  }
+  .hero-overlay p {
+    font-size: 0.75rem;
+  }
+}
+
 
 /* Mobile responsive */
 @media (max-width: 600px) {

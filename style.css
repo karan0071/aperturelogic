@@ -346,3 +346,14 @@ li {
   box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
 
+/* Fix hero banner height when sticky header is added */
+.hero-banner {
+  margin-top: 30px !important;   /* ensures separation from sticky header */
+  height: 100px !important;      /* restores Option B height */
+}
+
+.hero-img {
+  height: 100% !important;       /* prevent compression */
+  object-fit: cover !important;
+}
+
